@@ -1,6 +1,6 @@
 {
-    "name": "material_3_demo",
-    "short_name": "material_3_demo",
+    "name": "advanced_list_riverpod",
+    "short_name": "advanced_list_riverpod",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
