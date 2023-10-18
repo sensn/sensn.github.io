@@ -1,11 +1,11 @@
 {
-    "name": "advanced_list_riverpod",
-    "short_name": "advanced_list_riverpod",
+    "name": "element_embedding_demo",
+    "short_name": "element_embedding",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "An example of how to embed a Flutter Web app into any HTML Element of a page.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
