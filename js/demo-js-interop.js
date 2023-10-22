@@ -12,14 +12,22 @@
 
     let valueField = document.querySelector("#value");
     let updateState = function () {
-      valueField.value = appState.count;
+      //valueField.value = appState.count;
+      valueField.value = appState.mybuffer;
+      //myFunction();
+      myFunction(appState.mybuffer);
+      //let midiOutput = null;
+     // document.queryselector("#value").trigger('change');
+     //document.getElementById("value").trigger('change');
+     
+  
     };
 
     // Register a callback to update the HTML field from Flutter.
     appState.addHandler(updateState);
 
     // Render the first value (0).
-    updateState();
+    //updateState();  !!!
 
     let incrementButton = document.querySelector("#increment");
     incrementButton.addEventListener("click", (event) => {

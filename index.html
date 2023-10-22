@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <base href="/" />
-    //<base href="/">
+   // href="/web_element_embedding/">
+    
+
+    <base href="/">
     <meta charset="UTF-8" />
     <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
     <meta name="description" content="A Flutter Web Element embedding demo." />
@@ -19,11 +21,16 @@
 
     <title>Element embedding</title>
     <link rel="manifest" href="manifest.json" />
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/webmidi@latest/dist/iife/webmidi.iife.js"></script>
 
     <!-- This script adds the flutter initialization JS code -->
     <script src="flutter.js" defer></script>
 
     <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+    
   </head>
   <body>
     <section class="contents">
@@ -69,7 +76,7 @@
 
           <label for="value">
             Value
-            <input id="value" value="" type="text" readonly />
+            <input id="value" value="" type="text" onchange="myFunction()" />
           </label>
           <input
             id="increment"
@@ -79,7 +86,7 @@
         </fieldset>
       </aside>
     </section>
-
+   
     <script>
       window.addEventListener("load", function (ev) {
         // Embed flutter into div#flutter_target
@@ -93,8 +100,57 @@
           },
         });
       });
+ 
     </script>
+
+<script>
+
+var midi = null;  // global MIDIAccess object
+var outputs =null;
+var  midiOutput =null;
+function onMIDISuccess( midiAccess ) {
+  console.log( "MIDI ready!" );
+  midi = midiAccess;  // store in the global (in real usage, would probably keep in an object instance)
+  outputs = Array.from(midiAccess.outputs.values());
+  console.log(outputs);
+  midiOutput = outputs[0];
+//midiOutput.send([0x90, 0x3C, 0x80]); // hexadecimal
+//midiOutput.send([0b10000000, 0b00011100, 01111111]); // binary
+//midiOutput.send([144, 60, 122]); // decimal 128
+}
+
+
+
+function onMIDIFailure(msg) {
+  console.log( "Failed to get MIDI access - " + msg );
+}
+
+navigator.requestMIDIAccess().then( onMIDISuccess, onMIDIFailure );
+
+
+  function myFunction(buffer) {
+   
+    document.getElementById("demo").innerHTML = "Hello ";
+    console.log("Hello!");
+    console.log(buffer);
+    midiOutput.send([144, 60, 122]);
+    if (buffer[0]>0){
+    midiOutput.send(buffer);}
+  }
+  </script>
+
     <script src="js/demo-js-interop.js" defer></script>
     <script src="js/demo-css-fx.js" defer></script>
+    <p id="demo"></p>
+    //
+   
+  <script>
+      const element = document.getElementById("value");
+      element.addEventListener("change", function() {
+        document.getElementById("demo").innerHTML = " World";
+      });
+      </script>
+  
   </body>
+
 </html>
