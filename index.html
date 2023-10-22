@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-   // href="/web_element_embedding/">
-    
-
+   
     <base href="/">
     <meta charset="UTF-8" />
     <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
@@ -39,7 +37,7 @@
       </article>
 
       <aside id="demo_controls">
-        <h1>Element embedding</h1>
+        <h1>Polyrytm</h1>
 
         <fieldset id="fx">
           <legend>Effects</legend>
@@ -65,7 +63,7 @@
         <fieldset id="interop">
           <legend>JS Interop</legend>
 
-          <label for="screen-selector">
+         <label for="screen-selector">
             Screen
             <select name="screen-select" id="screen-selector" class="screen">
               <option value="counter">Counter</option>
@@ -74,9 +72,15 @@
             </select>
           </label>
 
+          <label for="midi-selector">
+            Midi Out
+            <select onchange="selectMidi()" name="midi-select" id="midi-selector" class="midi">
+            </select>
+          </label>
+
           <label for="value">
             Value
-            <input id="value" value="" type="text" onchange="myFunction()" />
+            <input id="value" size="150" value="" type="text" onchange="myFunction()" />
           </label>
           <input
             id="increment"
@@ -113,13 +117,25 @@ function onMIDISuccess( midiAccess ) {
   midi = midiAccess;  // store in the global (in real usage, would probably keep in an object instance)
   outputs = Array.from(midiAccess.outputs.values());
   console.log(outputs);
-  midiOutput = outputs[0];
+  //outputs.forEach(output => console.log('ooo'));
+  outputs.forEach((output, index) => {
+    console.log(index  + ' '+ output.name);
+    let newOption = new Option(outputs[index].name,'Option Value');
+  const select = document.getElementById("midi-selector"); 
+  select.add(newOption,undefined);
+});
+
+midiOutput = outputs[0];
 //midiOutput.send([0x90, 0x3C, 0x80]); // hexadecimal
 //midiOutput.send([0b10000000, 0b00011100, 01111111]); // binary
 //midiOutput.send([144, 60, 122]); // decimal 128
 }
 
-
+function selectMidi(){
+  var midiout = document.getElementById("midi-selector").selectedIndex;
+  midiOutput = outputs[midiout];
+  console.log(midiout);
+}
 
 function onMIDIFailure(msg) {
   console.log( "Failed to get MIDI access - " + msg );
@@ -127,13 +143,12 @@ function onMIDIFailure(msg) {
 
 navigator.requestMIDIAccess().then( onMIDISuccess, onMIDIFailure );
 
-
   function myFunction(buffer) {
    
-    document.getElementById("demo").innerHTML = "Hello ";
+    document.getElementById("demo").innerHTML = "Hello " + buffer;
     console.log("Hello!");
     console.log(buffer);
-    midiOutput.send([144, 60, 122]);
+   // midiOutput.send([144, 60, 122]);
     if (buffer[0]>0){
     midiOutput.send(buffer);}
   }
