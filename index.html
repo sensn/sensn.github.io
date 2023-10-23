@@ -69,6 +69,7 @@
               <option value="counter">Counter</option>
               <option value="textField">TextField</option>
               <option value="custom">Custom App</option>
+              <option value="poly">poly</option>
             </select>
           </label>
 
@@ -111,7 +112,7 @@
 
 var midi = null;  // global MIDIAccess object
 var outputs =null;
-var  midiOutput =null;
+var midiOutput =null;
 function onMIDISuccess( midiAccess ) {
   console.log( "MIDI ready!" );
   midi = midiAccess;  // store in the global (in real usage, would probably keep in an object instance)

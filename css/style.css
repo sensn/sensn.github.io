@@ -153,14 +153,14 @@ h1 {
 /** The style for the DIV where flutter will be rendered, and the CSS fx */
 #flutter_target {
   border: 1px solid #aaa;
-  width: 320px;
-  height: 480px;
+  width: 480px;
+  height: 320px;
   border-radius: 0px;
   transition: all 150ms ease-in;
 }
 #flutter_target.resize {
-  width: 480px;
-  height: 320px;
+  width: 580px;
+  height: 420px;
 }
 #flutter_target.spin { animation: spin 6400ms ease-in-out infinite; }
 #flutter_target.shadow { position: relative; }
